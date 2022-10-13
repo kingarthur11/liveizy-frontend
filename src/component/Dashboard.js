@@ -5,31 +5,30 @@ import axios from "axios";
 
 const Dashboard = () => {
   let navigate = useNavigate();
-  const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState("");
 
   useEffect(() => {
     const tokenString = JSON.parse(localStorage.getItem("accessToken"));
-
+    console.log(tokenString);
     if (!tokenString) {
       navigate(`/login`);
     } else {
-      setFormData(tokenString);
+      setFormData(tokenString.user_details.referral_code);
     }
   }, []);
+
   const logout = (e) => {
     e.preventDefault();
     localStorage.clear();
     navigate(`/login`);
   };
 
-  // console.log(formData)
-
   return (
     <div>
       <div className="dashboard d-flex justify-content-around align-items-center">
         <div>
           <h3>Welcom to Dashboard</h3>
-          <p>Your refferal link is: {formData && formData.user_details.referral_code}</p>
+          {formData && <p>Your refferal link is: {formData && formData}</p>}
         </div>
         <button onClick={logout}>Log out</button>
       </div>

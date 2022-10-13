@@ -93,11 +93,11 @@ const Register = () => {
               </button>
             )}
           </form>
-          <p>
+          <p className="py-3">
             {" "}
             Already have an account?{" "}
             <span className="text-primary">
-              <Link className="style-link" to="login">
+            <Link to=".." relative="login">
                 Sign In
               </Link>
             </span>

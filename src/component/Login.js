@@ -4,7 +4,7 @@ import "./login.css";
 import axios from "axios";
 
 const Login = () => {
-  const navigate = useNavigate
+  const navigate = useNavigate;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,9 +24,9 @@ const Login = () => {
       const formData = await response.data;
       if (formData) {
         localStorage.setItem("accessToken", JSON.stringify(formData.token));
-        console.log(formData)
+        console.log(formData);
         setIsLoading(false);
-        navigate(`/`)
+        navigate(`/`);
       }
       return { formData };
     } catch (error) {
@@ -36,14 +36,14 @@ const Login = () => {
     }
   };
   const onFormSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     LoginUser();
   };
 
   useEffect(() => {
     const tokenString = JSON.parse(localStorage.getItem("accessToken"));
     if (tokenString) {
-      navigate(`/`)
+      navigate(`/`);
     }
   }, []);
 
@@ -84,9 +84,7 @@ const Login = () => {
                 Loading...
               </button>
             ) : (
-              <button type="submit">
-                Sign In
-              </button>
+              <button type="submit">Sign In</button>
             )}
           </form>
           <p className="py-3 text-danger">Forgot Password?</p>
@@ -94,8 +92,8 @@ const Login = () => {
             {" "}
             Don't have an account yet?{" "}
             <span className="text-primary">
-              <Link className="" to="./register">
-                Sign Up
+              <Link to=".." relative="register">
+                Login
               </Link>
             </span>
           </p>

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./login.css";
 import axios from "axios";
+import Dashboard from "./Dashboard";
 
 const Register = () => {
-    const navigate = useNavigate
+  const navigate = useNavigate();
+  const tokenString = JSON.parse(localStorage.getItem("accessToken"));
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,9 +25,10 @@ const Register = () => {
         obj
       );
       const formData = await response.data;
+      setIsLoading(false);
+      navigate(`/login`);
       if (formData) {
         setIsLoading(false);
-        
       }
       return { formData };
     } catch (error) {
@@ -34,17 +37,20 @@ const Register = () => {
       return { message };
     }
   };
-  const onFormSubmit = () => {
-    RegisterUser();
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    RegisterUser(formData);
   };
 
   useEffect(() => {
-    const tokenString = JSON.parse(localStorage.getItem("accessToken"));
     if (tokenString) {
         navigate(`/`)
     }
   }, []);
 
+  // if (tokenString) {
+  //   return <Dashboard />;
+  // } else {
   return (
     <div className="login-content">
       <div className="left-side">
@@ -88,18 +94,14 @@ const Register = () => {
                 <span> Loading</span>
               </button>
             ) : (
-              <button type="submit">
-                Sign Up
-              </button>
+              <button type="submit">Sign Up</button>
             )}
           </form>
           <p className="py-3">
             {" "}
             Already have an account?{" "}
             <span className="text-primary">
-            <Link to=".." relative="login">
-                Sign In
-              </Link>
+              <Link to="/login">Sign In</Link>
             </span>
           </p>
         </div>

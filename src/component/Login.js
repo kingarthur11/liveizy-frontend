@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, redirect } from "react-router-dom";
 import "./login.css";
 import axios from "axios";
 
 const Login = () => {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,17 +17,17 @@ const Login = () => {
   const LoginUser = async (obj) => {
     try {
       setIsLoading(true);
+      console.log(obj);
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}login`,
         obj
       );
       const formData = await response.data;
-      if (formData) {
-        localStorage.setItem("accessToken", JSON.stringify(formData.token));
-        console.log(formData);
-        setIsLoading(false);
-        navigate(`/`);
-      }
+      const token = await formData.data.token;
+      localStorage.setItem("accessToken", JSON.stringify(token));
+      console.log(token);
+      setIsLoading(false);
+      navigate(`/`);
       return { formData };
     } catch (error) {
       const message = error.response;
@@ -37,7 +37,7 @@ const Login = () => {
   };
   const onFormSubmit = (e) => {
     e.preventDefault();
-    LoginUser();
+    LoginUser(formData);
   };
 
   useEffect(() => {
@@ -92,9 +92,7 @@ const Login = () => {
             {" "}
             Don't have an account yet?{" "}
             <span className="text-primary">
-              <Link to=".." relative="register">
-                Login
-              </Link>
+              <Link to="/register">Login</Link>
             </span>
           </p>
         </div>

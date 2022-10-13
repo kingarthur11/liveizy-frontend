@@ -11,7 +11,6 @@ const Login = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const onInputChange = (e) => {
-    // console.log(e.target);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const LoginUser = async (obj) => {
@@ -23,7 +22,7 @@ const Login = () => {
         obj
       );
       const formData = await response.data;
-      const token = await formData.data.token;
+      const token = await formData.data;
       localStorage.setItem("accessToken", JSON.stringify(token));
       console.log(token);
       setIsLoading(false);

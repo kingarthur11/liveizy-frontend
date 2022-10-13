@@ -48,9 +48,6 @@ const Register = () => {
     }
   }, []);
 
-  // if (tokenString) {
-  //   return <Dashboard />;
-  // } else {
   return (
     <div className="login-content">
       <div className="left-side">

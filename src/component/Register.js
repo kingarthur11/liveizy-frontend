@@ -88,7 +88,6 @@ const Register = () => {
             {isLoading ? (
               <button color="primary" disabled>
                 Loading...
-                <span> Loading</span>
               </button>
             ) : (
               <button type="submit">Sign Up</button>
